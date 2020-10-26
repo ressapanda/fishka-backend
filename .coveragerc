@@ -1,0 +1,16 @@
+[run]
+branch = true
+omit =
+    */tests/*
+    */venv/*
+    *__init__.py*
+    */migrations/*
+    *manage.py*
+    *wsgi.py*
+    *asgi.py*
+    */usr/lib/python3/*
+    */dist-packages/*
+    */.virtualenvs/*
+    */root/.cache/*
+    */.cache/pypoetry/*
+    */opt/*

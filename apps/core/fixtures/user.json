@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$QFqSn7pcF8T6$JxMadbOEmlqdaB/6djyMcAouuALEpAm9N7j9cU6Cl3k=",
+      "last_login": "2020-10-24T23:34:04.412Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Admin",
+      "last_name": "istrator",
+      "email": "fishka@adrox.xyz",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-10-24T23:33:56.644Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
