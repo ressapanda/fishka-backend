@@ -93,7 +93,7 @@ services:
 
   fishka-db:
     container_name: "fishka-db"
-    image: "postgres:12-alpine"
+    image: "postgres:13-alpine"
     restart: unless-stopped
     volumes:
       - fishka-db:/var/lib/postgresql

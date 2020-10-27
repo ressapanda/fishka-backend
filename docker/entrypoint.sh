@@ -1,4 +1,5 @@
 #!/bin/bash
+/app/docker/wait_for.sh fishka-db:5432 -t 15 -- echo "PSQL (fishka-db) is up!"
 
 python manage.py migrate
 python manage.py loaddata user categories questions
