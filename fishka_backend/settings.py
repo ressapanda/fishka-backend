@@ -42,10 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'allauth',
-    'allauth.account',
     'rest_framework',
-    'dry_rest_permissions',
     'django_filters',
     'drf_yasg',
 ]
@@ -113,15 +110,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',

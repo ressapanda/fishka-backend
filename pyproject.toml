@@ -13,11 +13,9 @@ uvicorn = "^0.12.2"
 psycopg2-binary = "^2.8.6"
 djangorestframework = "^3.11.1"
 django-filter = "^2.4.0"
-djangorestframework-simplejwt = "^4.4.0"
-django-allauth = "^0.43.0"
 drf-yasg = "^1.17.1"
 packaging = "^20.4"
-django-dry-rest-permissions = "^1.1.0"
+Markdown = "^3.3.3"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"

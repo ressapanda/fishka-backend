@@ -3,56 +3,169 @@
     "model": "categories.category",
     "pk": 1,
     "fields": {
-      "name": "backend"
+      "name": "Angluar",
+      "category_type": "framework"
     }
   },
   {
     "model": "categories.category",
     "pk": 2,
     "fields": {
-      "name": "frontend"
+      "name": "React",
+      "category_type": "framework"
     }
   },
   {
     "model": "categories.category",
     "pk": 3,
     "fields": {
-      "name": "python"
+      "name": "Vue",
+      "category_type": "framework"
     }
   },
   {
     "model": "categories.category",
     "pk": 4,
     "fields": {
-      "name": "javascript"
+      "name": "Django",
+      "category_type": "framework"
     }
   },
   {
     "model": "categories.category",
     "pk": 5,
     "fields": {
-      "name": "go"
+      "name": "FastApi",
+      "category_type": "framework"
     }
   },
   {
     "model": "categories.category",
     "pk": 6,
     "fields": {
-      "name": "devops"
+      "name": "Flask",
+      "category_type": "framework"
     }
   },
   {
     "model": "categories.category",
     "pk": 7,
     "fields": {
-      "name": "angluar"
+      "name": "Docker",
+      "category_type": "framework"
     }
   },
   {
     "model": "categories.category",
     "pk": 8,
     "fields": {
-      "name": "react"
+      "name": "Python",
+      "category_type": "language"
     }
+  },
+  {
+    "model": "categories.category",
+    "pk": 9,
+    "fields": {
+      "name": "Javascript",
+      "category_type": "language"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 10,
+    "fields": {
+      "name": "Go",
+      "category_type": "language"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 11,
+    "fields": {
+      "name": "Backend",
+      "category_type": "team"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 12,
+    "fields": {
+      "name": "Frontend",
+      "category_type": "team"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 13,
+    "fields": {
+      "name": "Devops",
+      "category_type": "team"
+    }
+  },
+  {
+    "model": "categories.framework",
+    "pk": 1,
+    "fields": {}
+  },
+  {
+    "model": "categories.framework",
+    "pk": 4,
+    "fields": {}
+  },
+  {
+    "model": "categories.framework",
+    "pk": 7,
+    "fields": {}
+  },
+  {
+    "model": "categories.framework",
+    "pk": 5,
+    "fields": {}
+  },
+  {
+    "model": "categories.framework",
+    "pk": 6,
+    "fields": {}
+  },
+  {
+    "model": "categories.framework",
+    "pk": 2,
+    "fields": {}
+  },
+  {
+    "model": "categories.framework",
+    "pk": 3,
+    "fields": {}
+  },
+  {
+    "model": "categories.team",
+    "pk": 11,
+    "fields": {}
+  },
+  {
+    "model": "categories.team",
+    "pk": 13,
+    "fields": {}
+  },
+  {
+    "model": "categories.team",
+    "pk": 12,
+    "fields": {}
+  },
+  {
+    "model": "categories.language",
+    "pk": 10,
+    "fields": {}
+  },
+  {
+    "model": "categories.language",
+    "pk": 9,
+    "fields": {}
+  },
+  {
+    "model": "categories.language",
+    "pk": 8,
+    "fields": {}
   }
 ]

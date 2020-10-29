@@ -1,14 +1,18 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from dry_rest_permissions.generics import DRYPermissions
+from rest_framework import mixins
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import GenericViewSet
 
 from apps.core.views import MultiSerializerMixin
 from apps.questions.models import Question
 from apps.questions.serializers import QuestionReadSerializer, QuestionSerializer
 
 
-class QuestionViewSet(MultiSerializerMixin, ModelViewSet):
+class QuestionViewSet(MultiSerializerMixin,
+                      mixins.CreateModelMixin,
+                      mixins.RetrieveModelMixin,
+                      mixins.ListModelMixin,
+                      GenericViewSet):
     """
         ViewSet based on Question model.
 
@@ -23,32 +27,17 @@ class QuestionViewSet(MultiSerializerMixin, ModelViewSet):
 
         To correct response you need provide *id* of existing question instance in path.
 
-        update: Update question instance informations.
-
-        To correct response you need provide *id* of existing question instance in path.
-
         create: Create new question.
 
-        To successfuly add new question check QuestionSerializer for needed fields and its additional parameters.
-
-        partial_update: Patch question.
-
-        To correct response you need provide *id* of existing question instance in path.
-
-        destroy: Delete question.
-
-        To correct response you need provide *id* of existing question instance in path.
+        To successfuly add new question check QuestionSerializer.
         """
-    permission_classes = (DRYPermissions,)
-    queryset = Question.objects.all()
+    queryset = Question.objects.filter(is_public=True)
     filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
-    filter_fields = ['categories', 'difficulty']
+    filter_fields = ['framework', 'team', 'language', 'difficulty']
     ordering_fields = ['id', 'created_at', 'updated_at']
     search_fields = ['question']
 
     serializers = {
         'create': QuestionSerializer,
-        'update': QuestionSerializer,
-        'partial_update': QuestionSerializer,
         'default': QuestionReadSerializer
     }
