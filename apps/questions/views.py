@@ -1,6 +1,10 @@
+from random import sample
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
+from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from apps.core.views import MultiSerializerMixin
@@ -41,3 +45,20 @@ class QuestionViewSet(MultiSerializerMixin,
         'create': QuestionSerializer,
         'default': QuestionReadSerializer
     }
+
+    @action(detail=False, methods=['get'])
+    def random_list(self, request):
+        """
+        Returns random list of questions
+
+        :param request: request object
+        :return: List of random questions
+        """
+        queryset = self.filter_queryset(self.get_queryset())
+        limit = int(request.query_params.get('limit', 5))
+        count = queryset.count()
+        if count > limit:
+            question_ids = sample(range(1, count), limit)
+            queryset = queryset.filter(id__in=question_ids)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
