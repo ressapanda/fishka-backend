@@ -28,6 +28,7 @@ api_patterns = [
 
     path('admin/', admin.site.urls),
 
+    path("core/", include("apps.core.urls")),
     path("questions/", include("apps.questions.urls")),
     path("categories/", include("apps.categories.urls")),
 ]
