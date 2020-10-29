@@ -37,4 +37,6 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 COPY . /app/
 WORKDIR /app
 
+RUN chmod +x /app/docker/wait_for.sh
+
 CMD ["/app/docker/entrypoint.sh"]
