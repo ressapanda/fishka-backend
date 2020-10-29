@@ -21,6 +21,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         curl \
         build-essential \
+        apt-utils \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
@@ -37,6 +38,6 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 COPY . /app/
 WORKDIR /app
 
-RUN chmod +x /app/docker/wait_for.sh
+RUN chmod +x /app/docker/wait-for-it.sh
 
 CMD ["/app/docker/entrypoint.sh"]
