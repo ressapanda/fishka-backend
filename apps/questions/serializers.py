@@ -1,5 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
+from apps.categories.serializers import FrameworkReadSerializer, TeamReadSerializer, \
+    LanguageReadSerializer
 from apps.questions.models import Question
 
 
@@ -28,6 +30,9 @@ class QuestionReadSerializer(ModelSerializer):
     """
     Question model read only serializer
     """
+    framework = FrameworkReadSerializer(read_only=True)
+    team = TeamReadSerializer(read_only=True)
+    language = LanguageReadSerializer(read_only=True)
 
     class Meta:
         model = Question
