@@ -59,6 +59,6 @@ class QuestionViewSet(MultiSerializerMixin,
         count = queryset.count()
         if count > limit:
             question_ids = sample(range(1, count), limit)
-            queryset = queryset.filter(id__in=question_ids)
+            queryset = queryset.filter(id__in=question_ids).order_by('?')
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
