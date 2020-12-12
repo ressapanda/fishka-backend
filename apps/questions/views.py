@@ -1,7 +1,7 @@
 from random import sample
 
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import mixins
+from rest_framework import mixins, status
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
@@ -9,7 +9,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from apps.core.views import MultiSerializerMixin
 from apps.questions.models import Question
-from apps.questions.serializers import QuestionReadSerializer, QuestionSerializer
+from apps.questions.serializers import QuestionReadSerializer, QuestionSerializer, BulkCreateQuestionsSerializer
 
 
 class QuestionViewSet(MultiSerializerMixin,
@@ -42,9 +42,24 @@ class QuestionViewSet(MultiSerializerMixin,
     search_fields = ['question']
 
     serializers = {
+        'bulk_create': BulkCreateQuestionsSerializer,
         'create': QuestionSerializer,
         'default': QuestionReadSerializer
     }
+
+    @action(detail=False, methods=['post'])
+    def bulk_create(self, request):
+        """
+        Create many questions in on request
+
+        :param request: request object
+        :return: List of created questions
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(detail=False, methods=['get'])
     def random_list(self, request):
