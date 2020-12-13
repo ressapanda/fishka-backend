@@ -41,9 +41,7 @@ services:
   fishka-backend: &fishka-backend
     container_name: "fishka-backend"
     restart: unless-stopped
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: "adrixop95/fishka-backend:latest"
     environment:
       - DB_ENGINE=django.db.backends.postgresql_psycopg2
       - DB_HOST=fishka-db
@@ -65,7 +63,6 @@ services:
     depends_on:
       - fishka-db
     volumes:
-      - ./:/app/
       - backend_statics:/app/static/
     networks:
       - fishka-network
