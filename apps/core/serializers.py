@@ -9,7 +9,7 @@ class StatisticsSerializer(serializers.Serializer):
     categories_count = serializers.IntegerField(min_value=0, help_text="Number of categories")
 
     def create(self, validated_data):
-        raise NotImplemented
+        raise NotImplementedError
 
     def update(self, instance, validated_data):
-        raise NotImplemented
+        raise NotImplementedError
