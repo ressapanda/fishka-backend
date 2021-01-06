@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 /app/docker/wait-for-it.sh fishka-db:5432 -t 15 -- echo "PSQL (fishka-db) is up!"
 
 python manage.py migrate
