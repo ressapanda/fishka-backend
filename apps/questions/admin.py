@@ -5,6 +5,9 @@ from apps.questions.models import Question
 
 
 class QuestionAdmin(admin.ModelAdmin):
+    """
+    Admin model for question category
+    """
     list_display = ['__str__', 'difficulty', 'framework', 'team', 'language']
     list_filter = ['difficulty', 'framework', 'team', 'language']
 
@@ -14,6 +17,9 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class QuestionSuggestionAdmin(admin.ModelAdmin):
+    """
+    Admin model for question suggestion category
+    """
     list_display = ['__str__', 'author_email', 'created_at']
     ordering = ['created_at']
     actions = ['make_published']

@@ -28,7 +28,7 @@ class MultiSerializerMixin:  # pylint:disable=too-few-public-methods
 
 
 @api_view(['get'])
-def get_statistics(request):  # pylint: disable=unused-argument
+def get_statistics(request):
     """
     List number of questions and categories
 

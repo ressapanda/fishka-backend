@@ -28,6 +28,11 @@ class CategoryQuestionsCountSerializer(ModelSerializer):
 
     @staticmethod
     def get_questions_count(obj):
+        """
+        Function return amount of questions in specific category type.
+
+        :return: Amount of questions in category
+        """
         if obj.category_type == 'framework':
             return obj.framework.questions.all().filter(is_public=True).count()
         if obj.category_type == 'team':

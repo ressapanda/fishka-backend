@@ -9,7 +9,7 @@ from rest_framework import permissions
 
 from fishka_backend import settings
 
-schema_view = get_schema_view(
+SchemaView = get_schema_view(
     openapi.Info(
         title="Fishka API",
         default_version='v0.1.0',
@@ -23,8 +23,8 @@ schema_view = get_schema_view(
 )
 
 api_patterns = [
-    path("docs/", schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path("redoc/", schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path("docs/", SchemaView.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path("redoc/", SchemaView.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path('admin/', admin.site.urls),
 
