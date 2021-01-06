@@ -32,6 +32,8 @@ COPY --from=builder-base $VENV_PATH $VENV_PATH
 COPY . /app/
 WORKDIR /app
 
+RUN apk --no-cache add py3-psycopg2
+
 RUN rm poetry.lock pyproject.toml
 RUN chmod +x /app/docker/*.sh
 
