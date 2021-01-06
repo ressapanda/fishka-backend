@@ -28,7 +28,7 @@ RUN poetry install --no-dev
 # Baseimage
 FROM python-base as production
 
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+COPY --from=builder-base $VENV_PATH $VENV_PATH
 COPY . /app/
 WORKDIR /app
 
