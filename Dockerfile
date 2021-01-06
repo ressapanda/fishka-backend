@@ -32,7 +32,7 @@ COPY --from=builder-base $VENV_PATH $VENV_PATH
 COPY . /app/
 WORKDIR /app
 
-RUN chmod +x /app/docker/wait-for.sh
-RUN chmod +x /app/docker/entrypoint.sh
+RUN rm poetry.lock pyproject.toml
+RUN chmod +x /app/docker/*.sh
 
 CMD ["/app/docker/entrypoint.sh"]

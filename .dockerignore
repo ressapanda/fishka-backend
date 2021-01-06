@@ -5,6 +5,7 @@ Dockerfile
 docker-compose.yml
 .vscode
 mypy.ini
+pytest.ini
 venv
 
 # Django project
