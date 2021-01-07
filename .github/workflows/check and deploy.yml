@@ -81,4 +81,4 @@ jobs:
     steps:
       - uses: azure/container-scan@v0
         with:
-          image-name: registry.hub.docker.com/adrixop95/fishka-backend:latest
+          image-name: registry.hub.docker.com/adrixop95/fishka-backend:${{ github.sha }}
