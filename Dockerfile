@@ -39,5 +39,5 @@ RUN chmod +x /app/docker/*.sh
 
 CMD ["/app/docker/entrypoint.sh"]
 
-HEALTHCHECK --interval=5m --timeout=3s \
+HEALTHCHECK --interval=2m --timeout=3s \
   CMD curl -f http://127.0.0.1:8000/api/admin/ || exit 1
