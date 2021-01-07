@@ -32,9 +32,12 @@ COPY --from=builder-base $VENV_PATH $VENV_PATH
 COPY . /app/
 WORKDIR /app
 
-RUN apk --no-cache add py3-psycopg2
+RUN apk --no-cache add py3-psycopg2 curl
 
-RUN rm poetry.lock pyproject.toml
+RUN rm -f poetry.lock pyproject.toml Dockerfile docker-compose.yml
 RUN chmod +x /app/docker/*.sh
 
 CMD ["/app/docker/entrypoint.sh"]
+
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://127.0.0.1:8000/api/admin/ || exit 1
