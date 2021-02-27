@@ -4,7 +4,7 @@ services:
 
   fishka-traefik:
     container_name: "fishka-traefik"
-    image: "traefik:v2.3"
+    image: "traefik:v2.4"
     restart: unless-stopped
     command:
       - "--providers.docker=true"
@@ -38,7 +38,7 @@ services:
     networks:
       - fishka-network
 
-  fishka-backend: &fishka-backend
+  fishka-backend:
     container_name: "fishka-backend"
     restart: unless-stopped
     image: "adrixop95/fishka-backend:latest"
