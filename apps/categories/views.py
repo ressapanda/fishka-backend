@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
@@ -13,11 +14,14 @@ class CategoryViewSet(MultiSerializerMixin,
 
     list: List every Category.
 
-    This route doesn't allow to filter,search or order requests.
+    ### This route allow to:
+        - Filter by field: *'category_type'*
 
     retrieve: Retrieve specific instance of category.
     """
     queryset = Category.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ['category_type']
 
     serializers = {
         'questions_count': CategoryQuestionsCountSerializer,
