@@ -25,6 +25,8 @@ jobs:
           poetry add flake8
           poetry add safety
           poetry add PyLint
+          poetry add pylint_django
+          poetry add pylint_requests
           poetry show -v
 
       - name: Lint with flake8
@@ -37,7 +39,7 @@ jobs:
         run: |
           POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
           source $POETRY_VENV/bin/activate
-          pylint apps/ fishka_backend/ --rcfile ./.pylintrc 
+          DJANGO_SETTINGS_MODULE=fishka_backend.settings pylint apps/ fishka_backend/ --rcfile ./.pylintrc
 
       - name: PipCheck
         run: |
