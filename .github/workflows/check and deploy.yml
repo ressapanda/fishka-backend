@@ -25,6 +25,8 @@ jobs:
           poetry add flake8
           poetry add safety
           poetry add PyLint
+          poetry add pylint_django
+          poetry add pylint_requests
           poetry show -v
 
       - name: Lint with flake8
