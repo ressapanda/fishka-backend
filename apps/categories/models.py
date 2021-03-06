@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class Category(models.Model):
@@ -6,21 +7,17 @@ class Category(models.Model):
     Abstract model for category name.
     """
 
+    class CategoryType(models.TextChoices):
+        FRAMEWORK = 'framework', _('Framework')
+        TEAM = 'team', _('Team')
+        LANGUAGE = 'language', _('Language')
+
+    name = models.CharField(max_length=20, unique=True, verbose_name=_("Name"), help_text=_("Category name"))
+    category_type = models.CharField(choices=CategoryType.choices, max_length=9, editable=False,
+                                     verbose_name=_("Category type"), help_text=_("Category type"))
+
     class Meta:
         ordering = ['name']
-
-    FRAMEWORK = 'framework'
-    TEAM = 'team'
-    LANGUAGE = 'language'
-    category_type_choices = (
-        (FRAMEWORK, 'Framework'),
-        (TEAM, 'Team'),
-        (LANGUAGE, 'Language'),
-    )
-
-    name = models.CharField(max_length=20, unique=True, help_text="Category name")
-    category_type = models.CharField(choices=category_type_choices, max_length=9, editable=False,
-                                     help_text="Category type")
 
     def __str__(self):
         return self.name
@@ -33,7 +30,7 @@ class Framework(Category):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        self.category_type = Category.FRAMEWORK
+        self.category_type = Category.CategoryType.FRAMEWORK
         super().save(force_insert, force_update, using, update_fields)
 
 
@@ -44,7 +41,7 @@ class Team(Category):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        self.category_type = Category.TEAM
+        self.category_type = Category.CategoryType.TEAM
         super().save(force_insert, force_update, using, update_fields)
 
 
@@ -55,5 +52,5 @@ class Language(Category):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        self.category_type = Category.LANGUAGE
+        self.category_type = Category.CategoryType.LANGUAGE
         super().save(force_insert, force_update, using, update_fields)
