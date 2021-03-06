@@ -27,7 +27,7 @@ class CategoryQuestionsCountSerializer(ModelSerializer):
         read_only_fields = fields
 
     @staticmethod
-    def get_questions_count(obj):
+    def get_questions_count(obj: Category) -> int:
         """
         Function return amount of questions in specific category type.
 

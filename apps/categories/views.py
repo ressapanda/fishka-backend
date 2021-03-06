@@ -1,5 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
+from rest_framework.request import Request
+from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from apps.categories.models import Category
@@ -29,7 +31,7 @@ class CategoryViewSet(MultiSerializerMixin,
     }
 
     @action(detail=False, methods=['get'])
-    def questions_count(self, request):
+    def questions_count(self, request: Request) -> Response:
         """
         Returns categories with questions count.
 

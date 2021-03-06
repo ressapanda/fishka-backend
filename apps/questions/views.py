@@ -4,6 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins, status
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -48,7 +49,7 @@ class QuestionViewSet(MultiSerializerMixin,
     }
 
     @action(detail=False, methods=['post'])
-    def bulk_create(self, request):
+    def bulk_create(self, request: Request) -> Response:
         """
         Create many questions in on request
 
@@ -62,7 +63,7 @@ class QuestionViewSet(MultiSerializerMixin,
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(detail=False, methods=['get'])
-    def random_list(self, request):
+    def random_list(self, request: Request) -> Response:
         """
         Returns random list of questions
 

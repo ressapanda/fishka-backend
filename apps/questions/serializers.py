@@ -1,3 +1,5 @@
+from typing import List
+
 from django.db import transaction
 from rest_framework import serializers
 from rest_framework.exceptions import MethodNotAllowed, ValidationError
@@ -18,7 +20,7 @@ class QuestionSerializer(ModelSerializer):
         fields = ["id", "question", "answer", "difficulty", "framework", "team", "language", "author_email"]
         read_only_fields = ["id"]
 
-    def create(self, validated_data):
+    def create(self, validated_data: dict) -> Question:
         """
         Custom create function with handling of nested objects.
 
@@ -65,7 +67,7 @@ class BulkCreateQuestionsSerializer(Serializer):
         fields = ["author_email", "questions"]
 
     @staticmethod
-    def validate_questions(value):
+    def validate_questions(value: list) -> list:
         """
         Validator for questions to check questions length
         """
@@ -74,7 +76,7 @@ class BulkCreateQuestionsSerializer(Serializer):
         return value
 
     @transaction.atomic
-    def create(self, validated_data):
+    def create(self, validated_data: dict) -> dict:
         """
         Custom create function with handling bulk create.
 
@@ -92,5 +94,5 @@ class BulkCreateQuestionsSerializer(Serializer):
             ))
         return validated_data
 
-    def update(self, instance, validated_data):
+    def update(self, instance: Question, validated_data: dict) -> None:
         raise MethodNotAllowed
