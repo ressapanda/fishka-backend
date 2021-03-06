@@ -13,7 +13,7 @@ class CategoryFactory(DjangoModelFactory):
 
 
 class FrameworkCategoryFactory(DjangoModelFactory):
-    name = factory.Sequence(lambda n: f"category-{n}")
+    name = factory.Sequence(lambda n: f"category-framework-{n}")
     category_type = "Framework"
 
     class Meta:
@@ -21,7 +21,7 @@ class FrameworkCategoryFactory(DjangoModelFactory):
 
 
 class TeamCategoryFactory(DjangoModelFactory):
-    name = factory.Sequence(lambda n: f"category-{n}")
+    name = factory.Sequence(lambda n: f"category-team-{n}")
     category_type = "Team"
 
     class Meta:
@@ -29,7 +29,7 @@ class TeamCategoryFactory(DjangoModelFactory):
 
 
 class LanguageCategoryFactory(DjangoModelFactory):
-    name = factory.Sequence(lambda n: f"category-{n}")
+    name = factory.Sequence(lambda n: f"category-language-{n}")
     category_type = "Language"
 
     class Meta:
