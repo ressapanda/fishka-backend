@@ -37,5 +37,7 @@ repos:
     hooks:
       - id: pylint
         name: pylint
+        args:
+          - django-settings-module=fishka_backend.settings
         language: system
         exclude: tests/
