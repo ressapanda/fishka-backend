@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+from ast import literal_eval
 from pathlib import Path
+
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,20 +23,21 @@ APPS_DIR = os.path.join(BASE_DIR, 'apps')
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1h!zb2^o-)ao(m#^q64&pj&muup^-5!9%%%gdj9k9*xm4437s)'
+SECRET_KEY = os.environ.get('SECRET_KEY', '1h!zb2^o-)ao(m#^q64&pj&muup^-5!9%%%gdj9k9*xm4437s)')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = literal_eval(os.environ.get('DEBUG', 'True'))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST', '*')]
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_METHODS = [
-    'GET',
-    'OPTIONS',
-    'POST',
-]
+if DEBUG:
+    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_ALLOW_METHODS = [
+        'GET',
+        'OPTIONS',
+        'POST',
+    ]
 
 # Application definition
 
@@ -146,6 +150,11 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('pl', _('Polish')),
+]
 
 # HTTPS
 USE_X_FORWARDED_HOST = True

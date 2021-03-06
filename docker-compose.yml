@@ -45,6 +45,9 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
+      - SECRET_KEY=1h!zb2^o-)ao(m#^q64&pj&muup^-5!9%%%gdj9k9*xm4437s)
+      - DEBUG=True
+      - ALLOWED_HOSTS=*
       - DB_ENGINE=django.db.backends.postgresql_psycopg2
       - DB_HOST=fishka-db
       - DB_NAME=fishka-database
