@@ -1,5 +1,3 @@
-from typing import List
-
 from django.db import transaction
 from rest_framework import serializers
 from rest_framework.exceptions import MethodNotAllowed, ValidationError
@@ -11,9 +9,7 @@ from apps.questions.models import Question
 
 
 class QuestionSerializer(ModelSerializer):
-    """
-    Question model serializer
-    """
+    """Question model serializer."""
 
     class Meta:
         model = Question
@@ -22,7 +18,7 @@ class QuestionSerializer(ModelSerializer):
 
     def create(self, validated_data: dict) -> Question:
         """
-        Custom create function with handling of nested objects.
+        Create function with handling of nested objects.
 
         :param validated_data: serializer data after validation
         :return: created Question object
@@ -32,9 +28,8 @@ class QuestionSerializer(ModelSerializer):
 
 
 class QuestionReadSerializer(ModelSerializer):
-    """
-    Question model read only serializer
-    """
+    """Question model read only serializer."""
+
     framework = FrameworkReadSerializer(read_only=True)
     team = TeamReadSerializer(read_only=True)
     language = LanguageReadSerializer(read_only=True)
@@ -46,9 +41,7 @@ class QuestionReadSerializer(ModelSerializer):
 
 
 class BulkCreateQuestionSerializer(ModelSerializer):
-    """
-    Serializer used for bulk create questions list
-    """
+    """Serializer used for bulk create questions list."""
 
     class Meta:
         model = Question
@@ -57,9 +50,8 @@ class BulkCreateQuestionSerializer(ModelSerializer):
 
 
 class BulkCreateQuestionsSerializer(Serializer):
-    """
-    Serializer for bulk create method
-    """
+    """Serializer for bulk create method."""
+
     author_email = serializers.EmailField(required=True, help_text="Email address of question author")
     questions = BulkCreateQuestionSerializer(many=True)
 
@@ -68,9 +60,7 @@ class BulkCreateQuestionsSerializer(Serializer):
 
     @staticmethod
     def validate_questions(value: list) -> list:
-        """
-        Validator for questions to check questions length
-        """
+        """Validate questions length."""
         if len(value) >= 10:
             raise ValidationError("You can send only 10 questions in one request.")
         return value
@@ -78,7 +68,7 @@ class BulkCreateQuestionsSerializer(Serializer):
     @transaction.atomic
     def create(self, validated_data: dict) -> dict:
         """
-        Custom create function with handling bulk create.
+        Create function with handling bulk create.
 
         :param validated_data: serializer data after validation
         :return: created list of Question objects
@@ -95,4 +85,5 @@ class BulkCreateQuestionsSerializer(Serializer):
         return validated_data
 
     def update(self, instance: Question, validated_data: dict) -> None:
+        """Update function for bulk create serializer."""
         raise MethodNotAllowed

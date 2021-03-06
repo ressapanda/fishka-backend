@@ -5,9 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Category(models.Model):
-    """
-    Abstract model for category name.
-    """
+    """Abstract model for category name."""
 
     class CategoryType(models.TextChoices):
         FRAMEWORK = 'framework', _('Framework')
@@ -26,9 +24,7 @@ class Category(models.Model):
 
 
 class Framework(Category):
-    """
-    Model contains categories.
-    """
+    """Model contains categories."""
 
     def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
              update_fields: Any = None) -> None:
@@ -37,9 +33,7 @@ class Framework(Category):
 
 
 class Team(Category):
-    """
-    Model contains categories about work group name.
-    """
+    """Model contains categories about work group name."""
 
     def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
              update_fields: Any = None) -> None:
@@ -48,9 +42,7 @@ class Team(Category):
 
 
 class Language(Category):
-    """
-    Model contains categories about programming language.
-    """
+    """Model contains categories about programming language."""
 
     def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
              update_fields: Any = None) -> None:

@@ -11,16 +11,15 @@ from apps.questions.models import Question
 
 
 class MultiSerializerMixin:  # pylint:disable=too-few-public-methods
-    """
-    Get specified serializer from array.
-    """
+    """Get specified serializer from array."""
+
     serializers: Dict[str, Union[None, SerializerMetaclass]] = {
         'default': None,
     }
 
     def get_serializer_class(self) -> Any:
         """
-        Function get serializer for every specific action
+        Get serializer for every specific action.
 
         :return: Serializer described in serializers dict
         """
@@ -34,7 +33,7 @@ class MultiSerializerMixin:  # pylint:disable=too-few-public-methods
 @api_view(['get'])
 def get_statistics(request: Request) -> Response:
     """
-    List number of questions and categories
+    List number of questions and categories.
 
     View to list questions and categories count.
     """

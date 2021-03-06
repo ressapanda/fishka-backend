@@ -19,23 +19,24 @@ class QuestionViewSet(MultiSerializerMixin,
                       mixins.ListModelMixin,
                       GenericViewSet):
     """
-        ViewSet based on Question model.
+    ViewSet based on Question model.
 
-        list: List every Question.
+    list: List every Question.
 
-        ### This route allow to:
-         - Filter by field: *'categories', 'difficulty'*
-         - Order by field: *'id', 'created_at', 'updated_at'*
-         - Search fraze used in fields: *'question'*
+    ### This route allow to:
+     - Filter by field: *'categories', 'difficulty'*
+     - Order by field: *'id', 'created_at', 'updated_at'*
+     - Search fraze used in fields: *'question'*
 
-        retrieve: Retrieve specific instance of question.
+    retrieve: Retrieve specific instance of question.
 
-        To correct response you need provide *id* of existing question instance in path.
+    To correct response you need provide *id* of existing question instance in path.
 
-        create: Create new question.
+    create: Create new question.
 
-        To successfuly add new question check QuestionSerializer.
-        """
+    To successfuly add new question check QuestionSerializer.
+    """
+
     queryset = Question.objects.filter(is_public=True)
     filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
     filter_fields = ['framework', 'team', 'language', 'difficulty']
@@ -51,7 +52,7 @@ class QuestionViewSet(MultiSerializerMixin,
     @action(detail=False, methods=['post'])
     def bulk_create(self, request: Request) -> Response:
         """
-        Create many questions in on request
+        Create many questions in on request.
 
         :param request: request object
         :return: List of created questions
@@ -65,7 +66,7 @@ class QuestionViewSet(MultiSerializerMixin,
     @action(detail=False, methods=['get'])
     def random_list(self, request: Request) -> Response:
         """
-        Returns random list of questions
+        Return random list of questions.
 
         :param request: request object
         :return: List of random questions

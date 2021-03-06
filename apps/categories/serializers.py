@@ -5,9 +5,7 @@ from apps.categories.models import Category, Framework, Team, Language
 
 
 class CategoryReadSerializer(ModelSerializer):
-    """
-    Serializer for all categories from Framework/Team/Language
-    """
+    """Serializer for all categories from Framework/Team/Language."""
 
     class Meta:
         model = Category
@@ -16,9 +14,8 @@ class CategoryReadSerializer(ModelSerializer):
 
 
 class CategoryQuestionsCountSerializer(ModelSerializer):
-    """
-    Serializer for category list with count of questions
-    """
+    """Serializer for category list with count of questions."""
+
     questions_count = SerializerMethodField()
 
     class Meta:
@@ -29,7 +26,7 @@ class CategoryQuestionsCountSerializer(ModelSerializer):
     @staticmethod
     def get_questions_count(obj: Category) -> int:
         """
-        Function return amount of questions in specific category type.
+        Return amount of questions in specific category type.
 
         :return: Amount of questions in category
         """
@@ -43,9 +40,7 @@ class CategoryQuestionsCountSerializer(ModelSerializer):
 
 
 class FrameworkReadSerializer(ModelSerializer):
-    """
-    Framework read serializer
-    """
+    """Framework read serializer."""
 
     class Meta:
         model = Framework
@@ -54,9 +49,7 @@ class FrameworkReadSerializer(ModelSerializer):
 
 
 class TeamReadSerializer(ModelSerializer):
-    """
-    Team read serializer
-    """
+    """Team read serializer."""
 
     class Meta:
         model = Team
@@ -65,9 +58,7 @@ class TeamReadSerializer(ModelSerializer):
 
 
 class LanguageReadSerializer(ModelSerializer):
-    """
-    Language read serializer
-    """
+    """Language read serializer."""
 
     class Meta:
         model = Language

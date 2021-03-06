@@ -6,9 +6,7 @@ from apps.core.models import BaseModel
 
 
 class Question(BaseModel):
-    """
-    Model describes every needed information for question.
-    """
+    """Model describes every needed information for question."""
 
     class Difficulty(models.TextChoices):
         EASY = 'e', _('Easy')

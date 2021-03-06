@@ -21,6 +21,7 @@ class CategoryViewSet(MultiSerializerMixin,
 
     retrieve: Retrieve specific instance of category.
     """
+
     queryset = Category.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ['category_type']
@@ -33,7 +34,7 @@ class CategoryViewSet(MultiSerializerMixin,
     @action(detail=False, methods=['get'])
     def questions_count(self, request: Request) -> Response:
         """
-        Returns categories with questions count.
+        Return categories with questions count.
 
         :param request: request object
         :return: List of categories
