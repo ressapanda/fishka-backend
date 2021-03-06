@@ -2,9 +2,10 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from apps.categories.models import Framework, Team, Language
+from apps.core.models import BaseModel
 
 
-class Question(models.Model):
+class Question(BaseModel):
     """
     Model describes every needed information for question.
     """
@@ -31,8 +32,6 @@ class Question(models.Model):
                                     help_text=_("Field specifies if user can see question instance"))
     author_email = models.EmailField(default=None, null=True, blank=True, verbose_name=_("Author email"),
                                      help_text=_("Email address of question author"))
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-updated_at']
