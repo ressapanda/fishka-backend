@@ -26,6 +26,13 @@ repos:
         name: Flake8
         exclude: "migrations/"
 
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.7.0
+    hooks:
+      - id: isort
+        args: ["--settings-file", "pyproject.toml"]
+        exclude: "migrations/"
+
   - repo: https://github.com/pycqa/pydocstyle
     rev: 5.1.1
     hooks:

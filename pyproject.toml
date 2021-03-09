@@ -54,3 +54,8 @@ exclude = '''
   | ^.*\b(migrations)\b.*$
 )/
 '''
+
+[tool.isort]
+line_length=120
+profile="black"
+skip="migrations"
