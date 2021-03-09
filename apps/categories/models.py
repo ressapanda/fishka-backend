@@ -8,16 +8,21 @@ class Category(models.Model):
     """Abstract model for category name."""
 
     class CategoryType(models.TextChoices):
-        FRAMEWORK = 'framework', _('Framework')
-        TEAM = 'team', _('Team')
-        LANGUAGE = 'language', _('Language')
+        FRAMEWORK = "framework", _("Framework")
+        TEAM = "team", _("Team")
+        LANGUAGE = "language", _("Language")
 
     name = models.CharField(max_length=20, unique=True, verbose_name=_("Name"), help_text=_("Category name"))
-    category_type = models.CharField(choices=CategoryType.choices, max_length=9, editable=False,
-                                     verbose_name=_("Category type"), help_text=_("Category type"))
+    category_type = models.CharField(
+        choices=CategoryType.choices,
+        max_length=9,
+        editable=False,
+        verbose_name=_("Category type"),
+        help_text=_("Category type"),
+    )
 
     class Meta:
-        ordering = ['name']
+        ordering = ["name"]
 
     def __str__(self) -> str:
         return self.name
@@ -28,8 +33,9 @@ class Framework(Category):
 
     # TODO: add proxy
 
-    def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
-             update_fields: Any = None) -> None:
+    def save(
+        self, force_insert: bool = False, force_update: bool = False, using: Any = None, update_fields: Any = None
+    ) -> None:
         self.category_type = Category.CategoryType.FRAMEWORK
 
 
@@ -38,8 +44,9 @@ class Team(Category):
 
     # TODO: add proxy
 
-    def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
-             update_fields: Any = None) -> None:
+    def save(
+        self, force_insert: bool = False, force_update: bool = False, using: Any = None, update_fields: Any = None
+    ) -> None:
         self.category_type = Category.CategoryType.TEAM
 
 
@@ -48,6 +55,7 @@ class Language(Category):
 
     # TODO: add proxy
 
-    def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
-             update_fields: Any = None) -> None:
+    def save(
+        self, force_insert: bool = False, force_update: bool = False, using: Any = None, update_fields: Any = None
+    ) -> None:
         self.category_type = Category.CategoryType.LANGUAGE

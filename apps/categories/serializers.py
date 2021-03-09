@@ -1,7 +1,7 @@
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
-from apps.categories.models import Category, Framework, Team, Language
+from apps.categories.models import Category, Framework, Language, Team
 
 
 class CategoryReadSerializer(ModelSerializer):
@@ -30,11 +30,11 @@ class CategoryQuestionsCountSerializer(ModelSerializer):
 
         :return: Amount of questions in category
         """
-        if obj.category_type == 'framework':
+        if obj.category_type == "framework":
             return obj.framework.questions.all().filter(is_public=True).count()
-        if obj.category_type == 'team':
+        if obj.category_type == "team":
             return obj.team.questions.all().filter(is_public=True).count()
-        if obj.category_type == 'language':
+        if obj.category_type == "language":
             return obj.language.questions.all().filter(is_public=True).count()
         return 0
 

@@ -1,11 +1,7 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
 
-from apps.categories.factories import (
-    FrameworkCategoryFactory,
-    TeamCategoryFactory,
-    LanguageCategoryFactory,
-)
+from apps.categories.factories import FrameworkCategoryFactory, LanguageCategoryFactory, TeamCategoryFactory
 from apps.questions.models import Question
 
 

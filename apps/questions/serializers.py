@@ -3,8 +3,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import MethodNotAllowed, ValidationError
 from rest_framework.serializers import ModelSerializer, Serializer
 
-from apps.categories.serializers import FrameworkReadSerializer, TeamReadSerializer, \
-    LanguageReadSerializer
+from apps.categories.serializers import FrameworkReadSerializer, LanguageReadSerializer, TeamReadSerializer
 from apps.questions.models import Question
 
 
@@ -73,15 +72,13 @@ class BulkCreateQuestionsSerializer(Serializer):
         :param validated_data: serializer data after validation
         :return: created list of Question objects
         """
-        author_email = validated_data['author_email']
-        questions = validated_data.pop('questions')
-        validated_data['questions'] = []
+        author_email = validated_data["author_email"]
+        questions = validated_data.pop("questions")
+        validated_data["questions"] = []
         for question in questions:
-            validated_data['questions'].append(Question.objects.create(
-                **question,
-                is_public=False,
-                author_email=author_email
-            ))
+            validated_data["questions"].append(
+                Question.objects.create(**question, is_public=False, author_email=author_email)
+            )
         return validated_data
 
     def update(self, instance: Question, validated_data: dict) -> None:

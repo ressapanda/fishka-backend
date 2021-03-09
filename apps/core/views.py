@@ -1,4 +1,4 @@
-from typing import Union, Dict, Any
+from typing import Any, Dict, Union
 
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
@@ -14,7 +14,7 @@ class MultiSerializerMixin:  # pylint:disable=too-few-public-methods
     """Get specified serializer from array."""
 
     serializers: Dict[str, Union[None, SerializerMetaclass]] = {
-        'default': None,
+        "default": None,
     }
 
     def get_serializer_class(self) -> Any:
@@ -26,11 +26,11 @@ class MultiSerializerMixin:  # pylint:disable=too-few-public-methods
         try:
             serializer_class = self.serializers[self.action]  # type: ignore
         except KeyError:
-            serializer_class = self.serializers['default']
+            serializer_class = self.serializers["default"]
         return serializer_class
 
 
-@api_view(['get'])
+@api_view(["get"])
 def get_statistics(request: Request) -> Response:
     """
     List number of questions and categories.
