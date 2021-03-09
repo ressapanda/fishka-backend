@@ -5,6 +5,7 @@ from apps.categories.models import Category, Language, Team, Framework
 
 
 class CategoryFactory(DjangoModelFactory):
+    """Category model factory for tests purpose."""
     name = factory.Sequence(lambda n: f"category-{n}")
     category_type = factory.fuzzy.FuzzyChoice(("Framework", "Team", "Language"))
 
@@ -13,6 +14,7 @@ class CategoryFactory(DjangoModelFactory):
 
 
 class FrameworkCategoryFactory(DjangoModelFactory):
+    """Framework category model factory for tests purpose."""
     name = factory.Sequence(lambda n: f"category-framework-{n}")
     category_type = "Framework"
 
@@ -21,6 +23,7 @@ class FrameworkCategoryFactory(DjangoModelFactory):
 
 
 class TeamCategoryFactory(DjangoModelFactory):
+    """Team category model factory for tests purpose."""
     name = factory.Sequence(lambda n: f"category-team-{n}")
     category_type = "Team"
 
@@ -29,6 +32,7 @@ class TeamCategoryFactory(DjangoModelFactory):
 
 
 class LanguageCategoryFactory(DjangoModelFactory):
+    """Language category model factory for tests purpose."""
     name = factory.Sequence(lambda n: f"category-language-{n}")
     category_type = "Language"
 
