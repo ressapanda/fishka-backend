@@ -24,7 +24,6 @@ jobs:
           poetry install --no-dev
           poetry add black
           poetry add flake8
-          poetry add safety
           poetry show -v
 
       - name: Lint with black
@@ -38,12 +37,6 @@ jobs:
           POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
           source $POETRY_VENV/bin/activate
           flake8 .
-
-      - name: PipCheck
-        run: |
-          POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
-          source $POETRY_VENV/bin/activate
-          pip check
 
   build_container:
     name: Build and publish container
