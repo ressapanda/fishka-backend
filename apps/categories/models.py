@@ -31,6 +31,8 @@ class Framework(Category):
     Model contains categories.
     """
 
+    # TODO: add proxy
+
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.category_type = Category.FRAMEWORK
@@ -42,6 +44,8 @@ class Team(Category):
     Model contains categories about work group name.
     """
 
+    # TODO: add proxy
+
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.category_type = Category.TEAM
@@ -52,6 +56,8 @@ class Language(Category):
     """
     Model contains categories about programming language.
     """
+
+    # TODO: add proxy
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
