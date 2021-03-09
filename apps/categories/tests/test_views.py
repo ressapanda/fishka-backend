@@ -6,18 +6,20 @@ from apps.categories.factories import CategoryFactory, LanguageCategoryFactory, 
     FrameworkCategoryFactory
 from apps.categories.models import Category
 from apps.categories.serializers import CategoryReadSerializer
+from apps.questions.factories import QuestionFactory
 
 
-class CategoryTestCase(APITestCase):
+class CategoryViewsTestCase(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        super(CategoryTestCase, cls).setUpTestData()
+        super(CategoryViewsTestCase, cls).setUpTestData()
 
         cls.category1 = CategoryFactory()
         FrameworkCategoryFactory.create_batch(10)
         TeamCategoryFactory.create_batch(10)
         LanguageCategoryFactory.create_batch(10)
+        QuestionFactory.create_batch(20)
 
     def setUp(self):
         self.client = APIClient()

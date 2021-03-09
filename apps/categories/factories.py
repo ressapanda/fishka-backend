@@ -1,7 +1,7 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
 
-from apps.categories.models import Category
+from apps.categories.models import Category, Language, Team, Framework
 
 
 class CategoryFactory(DjangoModelFactory):
@@ -17,7 +17,7 @@ class FrameworkCategoryFactory(DjangoModelFactory):
     category_type = "Framework"
 
     class Meta:
-        model = Category
+        model = Framework
 
 
 class TeamCategoryFactory(DjangoModelFactory):
@@ -25,7 +25,7 @@ class TeamCategoryFactory(DjangoModelFactory):
     category_type = "Team"
 
     class Meta:
-        model = Category
+        model = Team
 
 
 class LanguageCategoryFactory(DjangoModelFactory):
@@ -33,4 +33,4 @@ class LanguageCategoryFactory(DjangoModelFactory):
     category_type = "Language"
 
     class Meta:
-        model = Category
+        model = Language
