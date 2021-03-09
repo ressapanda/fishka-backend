@@ -1,5 +1,3 @@
-from random import sample
-
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins, status
 from rest_framework.decorators import action
@@ -73,7 +71,6 @@ class QuestionViewSet(MultiSerializerMixin,
         limit = int(request.query_params.get('limit', 5))
         count = queryset.count()
         if count > limit:
-            question_ids = sample(range(1, count), limit)
-            queryset = queryset.filter(id__in=question_ids).order_by('?')
+            queryset = queryset.order_by('?')[:limit]
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
