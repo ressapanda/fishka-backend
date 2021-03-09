@@ -22,24 +22,22 @@ jobs:
           pip install pip --upgrade
           pip install poetry
           poetry install --no-dev
+          poetry add black
           poetry add flake8
           poetry add safety
-          poetry add PyLint
-          poetry add pylint_django
-          poetry add pylint_requests
           poetry show -v
+
+      - name: Lint with black
+        run: |
+          POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
+          source $POETRY_VENV/bin/activate
+          black --config pyproject.toml --exclude migrations/ --check .
 
       - name: Lint with flake8
         run: |
           POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
           source $POETRY_VENV/bin/activate
           flake8 .
-
-      - name: PyLint
-        run: |
-          POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
-          source $POETRY_VENV/bin/activate
-          DJANGO_SETTINGS_MODULE=fishka_backend.settings pylint apps/ fishka_backend/ --rcfile ./.pylintrc
 
       - name: PipCheck
         run: |

@@ -1,4 +1,14 @@
+default_language_version:
+  python: python3.9
+
 repos:
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        pass_filenames: true
+        args: [ "--config", "pyproject.toml" ]
+        exclude: "migrations/"
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.3.0
     hooks:
@@ -14,6 +24,7 @@ repos:
     hooks:
       - id: flake8
         name: Flake8
+        exclude: "migrations/"
 
   - repo: https://github.com/pycqa/pydocstyle
     rev: 5.1.1
