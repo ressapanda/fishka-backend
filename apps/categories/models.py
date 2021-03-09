@@ -26,25 +26,28 @@ class Category(models.Model):
 class Framework(Category):
     """Model contains categories."""
 
+    # TODO: add proxy
+
     def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
              update_fields: Any = None) -> None:
         self.category_type = Category.CategoryType.FRAMEWORK
-        super().save(force_insert, force_update, using, update_fields)
 
 
 class Team(Category):
     """Model contains categories about work group name."""
 
+    # TODO: add proxy
+
     def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
              update_fields: Any = None) -> None:
         self.category_type = Category.CategoryType.TEAM
-        super().save(force_insert, force_update, using, update_fields)
 
 
 class Language(Category):
     """Model contains categories about programming language."""
 
+    # TODO: add proxy
+
     def save(self, force_insert: bool = False, force_update: bool = False, using: Any = None,
              update_fields: Any = None) -> None:
         self.category_type = Category.CategoryType.LANGUAGE
-        super().save(force_insert, force_update, using, update_fields)
