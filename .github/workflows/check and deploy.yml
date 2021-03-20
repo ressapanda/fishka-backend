@@ -24,6 +24,7 @@ jobs:
           poetry install --no-dev
           poetry add black
           poetry add flake8
+          poetry add isort
           poetry show -v
 
       - name: Lint with black
@@ -37,6 +38,12 @@ jobs:
           POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
           source $POETRY_VENV/bin/activate
           flake8 .
+
+      - name: Check imports with isort
+        run: |
+          POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
+          source $POETRY_VENV/bin/activate
+          isort --settings-file pyproject.toml --check -q .
 
   build_container:
     name: Build and publish container
