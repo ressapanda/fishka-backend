@@ -96,8 +96,8 @@ DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.sqlite3"),
         "NAME": os.environ.get("DB_NAME", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("DB_USER", "zoo-user"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "zoo-password"),
+        "USER": os.environ.get("DB_USER", "fishka"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "fishka"),
         "HOST": os.environ.get("DB_HOST", "localhost"),
         "PORT": os.environ.get("DB_PORT", "5432"),
         "CONN_MAX_AGE": 600,

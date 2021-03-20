@@ -45,6 +45,49 @@ jobs:
           source $POETRY_VENV/bin/activate
           isort --settings-file pyproject.toml --check -q .
 
+  code_tests:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: [ '3.8','3.9' ]
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: fishka
+          POSTGRES_USER: fishka
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install pip --upgrade
+          pip install poetry
+          poetry install --no-dev
+          poetry add pytest pytest-django pytest-cov pytest-pythonpath factory-boy
+
+      - name: Run tests
+        run: |
+          POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
+          source $POETRY_VENV/bin/activate
+          pytest -q
+        env:
+          DB_ENGINE: django.db.backends.postgresql_psycopg2
+          DB_HOST: fishka-db
+          DB_NAME: fishka-database
+
   build_container:
     name: Build and publish container
     needs: code_checks
