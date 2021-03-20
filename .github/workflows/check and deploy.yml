@@ -47,6 +47,7 @@ jobs:
 
   code_tests:
     runs-on: ubuntu-20.04
+    needs: code_checks
     strategy:
       matrix:
         python-version: [ '3.8','3.9' ]
@@ -90,7 +91,7 @@ jobs:
 
   build_container:
     name: Build and publish container
-    needs: code_checks
+    needs: code_tests
     runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/master'
     steps:

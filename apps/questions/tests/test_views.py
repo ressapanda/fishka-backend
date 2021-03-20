@@ -1,3 +1,4 @@
+import pytest
 from rest_framework import status
 from rest_framework.reverse import reverse_lazy
 from rest_framework.test import APIClient, APITestCase
@@ -46,6 +47,7 @@ class QuestionViewsTestCase(APITestCase):
         assert response.status_code == status.HTTP_200_OK
         assert response.data == question1.data
 
+    @pytest.mark.django_db
     def test_question_create(self):
         """SHOULD create new question"""
         questions_count_before = Question.objects.all().count()
@@ -55,9 +57,8 @@ class QuestionViewsTestCase(APITestCase):
         question.pop("language")
         response = self.client.post(reverse_lazy("questions-list"), data=question, format="json")
         questions_count_after = Question.objects.all().count()
-        question1 = Question.objects.get(**question)
+        question1 = Question.objects.filter(question=question["question"]).first()
         question1_data = QuestionSerializer(question1)
-
         assert response.status_code == status.HTTP_201_CREATED
         assert questions_count_before + 1 == questions_count_after
         assert question1_data.data == response.data
