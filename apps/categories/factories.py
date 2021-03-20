@@ -18,7 +18,7 @@ class FrameworkCategoryFactory(DjangoModelFactory):
     """Framework category model factory for tests purpose."""
 
     name = factory.Sequence(lambda n: f"category-framework-{n}")
-    category_type = "Framework"
+    category_type = Category.CategoryType.FRAMEWORK
 
     class Meta:
         model = Framework
@@ -28,7 +28,7 @@ class TeamCategoryFactory(DjangoModelFactory):
     """Team category model factory for tests purpose."""
 
     name = factory.Sequence(lambda n: f"category-team-{n}")
-    category_type = "Team"
+    category_type = Category.CategoryType.TEAM
 
     class Meta:
         model = Team
@@ -38,7 +38,7 @@ class LanguageCategoryFactory(DjangoModelFactory):
     """Language category model factory for tests purpose."""
 
     name = factory.Sequence(lambda n: f"category-language-{n}")
-    category_type = "Language"
+    category_type = Category.CategoryType.LANGUAGE
 
     class Meta:
         model = Language
