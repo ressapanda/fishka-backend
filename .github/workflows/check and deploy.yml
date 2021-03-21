@@ -86,7 +86,7 @@ jobs:
           pytest -q
         env:
           DB_ENGINE: django.db.backends.postgresql_psycopg2
-          DB_HOST: fishka-db
+          DB_HOST: postgres
           DB_NAME: fishka-database
 
   build_container:
