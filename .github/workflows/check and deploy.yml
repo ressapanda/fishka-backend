@@ -81,17 +81,14 @@ jobs:
 
       - name: Run tests
         run: |
-          echo "$DB_HOST"
           POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
           source $POETRY_VENV/bin/activate
+          python3 manage.py migrate --noinput
           pytest -q
         env:
           DB_ENGINE: django.db.backends.postgresql_psycopg2
-          DB_HOST: localhost
-          DB_NAME: fishka-database
-          DB_USER: fishka-user
-          DB_PASSWORD: fishka-password
-          DB_PORT: 5432
+          DB_URL: "postgres://fishka-user:fishka-password@localhost:5432/fishka-database"
+          SECRET_KEY: qwertyuiop1234567890asdfghjkl
 
   build_container:
     name: Build and publish container
