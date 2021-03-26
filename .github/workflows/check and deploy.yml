@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.8','3.9']
+
     steps:
       - uses: actions/checkout@v2
 
@@ -54,16 +55,14 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:13-alpine
         env:
-          POSTGRES_PASSWORD: fishka
-          POSTGRES_USER: fishka
-          POSTGRES_DB: fishka
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          POSTGRES_USER: fishka-user
+          POSTGRES_PASSWORD: fishka-password
+          POSTGRES_DB: fishka-database
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - uses: actions/checkout@v2
@@ -82,13 +81,17 @@ jobs:
 
       - name: Run tests
         run: |
+          echo "$DB_HOST"
           POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
           source $POETRY_VENV/bin/activate
           pytest -q
         env:
           DB_ENGINE: django.db.backends.postgresql_psycopg2
           DB_HOST: postgres
-          DB_NAME: fishka
+          DB_NAME: fishka-database
+          DB_USER: fishka-user
+          DB_PASSWORD: fishka-password
+          DB_PORT: 5432
 
   build_container:
     name: Build and publish container
