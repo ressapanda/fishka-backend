@@ -5,7 +5,7 @@ from factory import Factory
 from factory.base import StubObject
 
 
-def generate_dict_factory(factory: Factory):
+def generate_dict_factory(factory: Factory) -> Any:
     def convert_dict_from_stub(stub: StubObject) -> Dict[str, Any]:
         stub_dict = stub.__dict__
         for key, value in stub_dict.items():
@@ -13,7 +13,7 @@ def generate_dict_factory(factory: Factory):
                 stub_dict[key] = convert_dict_from_stub(value)
         return stub_dict
 
-    def dict_factory(factory, **kwargs):
+    def dict_factory(factory: Factory, **kwargs: Dict[str, Any]) -> dict:
         stub = factory.stub(**kwargs)
         stub_dict = convert_dict_from_stub(stub)
         return stub_dict

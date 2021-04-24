@@ -1,13 +1,11 @@
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
-from apps.categories.models import Category, Framework, Team, Language
+from apps.categories.models import Category, Framework, Language, Team
 
 
 class CategoryReadSerializer(ModelSerializer):
-    """
-    Serializer for all categories from Framework/Team/Language
-    """
+    """Serializer for all categories from Framework/Team/Language."""
 
     class Meta:
         model = Category
@@ -16,9 +14,8 @@ class CategoryReadSerializer(ModelSerializer):
 
 
 class CategoryQuestionsCountSerializer(ModelSerializer):
-    """
-    Serializer for category list with count of questions
-    """
+    """Serializer for category list with count of questions."""
+
     questions_count = SerializerMethodField()
 
     class Meta:
@@ -27,25 +24,23 @@ class CategoryQuestionsCountSerializer(ModelSerializer):
         read_only_fields = fields
 
     @staticmethod
-    def get_questions_count(obj):
+    def get_questions_count(obj: Category) -> int:
         """
-        Function return amount of questions in specific category type.
+        Return amount of questions in specific category type.
 
         :return: Amount of questions in category
         """
-        if obj.category_type == 'framework':
+        if obj.category_type == "framework":
             return obj.framework.questions.all().filter(is_public=True).count()
-        if obj.category_type == 'team':
+        if obj.category_type == "team":
             return obj.team.questions.all().filter(is_public=True).count()
-        if obj.category_type == 'language':
+        if obj.category_type == "language":
             return obj.language.questions.all().filter(is_public=True).count()
         return 0
 
 
 class FrameworkReadSerializer(ModelSerializer):
-    """
-    Framework read serializer
-    """
+    """Framework read serializer."""
 
     class Meta:
         model = Framework
@@ -54,9 +49,7 @@ class FrameworkReadSerializer(ModelSerializer):
 
 
 class TeamReadSerializer(ModelSerializer):
-    """
-    Team read serializer
-    """
+    """Team read serializer."""
 
     class Meta:
         model = Team
@@ -65,9 +58,7 @@ class TeamReadSerializer(ModelSerializer):
 
 
 class LanguageReadSerializer(ModelSerializer):
-    """
-    Language read serializer
-    """
+    """Language read serializer."""
 
     class Meta:
         model = Language

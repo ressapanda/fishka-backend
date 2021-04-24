@@ -8,4 +8,4 @@ def test_category_str(capsys):
     category1 = CategoryFactory()
     print(category1)
     captured = capsys.readouterr()
-    assert captured.out == category1.name + '\n'
+    assert captured.out == category1.name + "\n"

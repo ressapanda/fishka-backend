@@ -1,12 +1,13 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
 
-from apps.categories.factories import FrameworkCategoryFactory, TeamCategoryFactory, LanguageCategoryFactory
+from apps.categories.factories import FrameworkCategoryFactory, LanguageCategoryFactory, TeamCategoryFactory
 from apps.questions.models import Question
 
 
 class QuestionFactory(DjangoModelFactory):
     """Question model factory for tests purpose."""
+
     question = factory.Sequence(lambda n: f"question-question-{n}")
     answer = factory.Sequence(lambda n: f"question-answer-{n}")
     difficulty = factory.fuzzy.FuzzyChoice(("e", "i", "h"))

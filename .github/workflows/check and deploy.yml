@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.8','3.9']
+
     steps:
       - uses: actions/checkout@v2
 
@@ -22,12 +23,16 @@ jobs:
           pip install pip --upgrade
           pip install poetry
           poetry install --no-dev
+          poetry add black
           poetry add flake8
-          poetry add safety
-          poetry add PyLint
-          poetry add pylint_django
-          poetry add pylint_requests
+          poetry add isort
           poetry show -v
+
+      - name: Lint with black
+        run: |
+          POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
+          source $POETRY_VENV/bin/activate
+          black --config pyproject.toml --exclude migrations/ --check .
 
       - name: Lint with flake8
         run: |
@@ -35,28 +40,72 @@ jobs:
           source $POETRY_VENV/bin/activate
           flake8 .
 
-      - name: PyLint
+      - name: Check imports with isort
         run: |
           POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
           source $POETRY_VENV/bin/activate
-          DJANGO_SETTINGS_MODULE=fishka_backend.settings pylint apps/ fishka_backend/ --rcfile ./.pylintrc
+          isort --settings-file pyproject.toml --check -q .
 
-      - name: PipCheck
+  code_tests:
+    runs-on: ubuntu-20.04
+    needs: code_checks
+    strategy:
+      matrix:
+        python-version: [ '3.8','3.9' ]
+
+    services:
+      postgres:
+        image: postgres:13-alpine
+        env:
+          POSTGRES_USER: fishka-user
+          POSTGRES_PASSWORD: fishka-password
+          POSTGRES_DB: fishka-database
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install pip --upgrade
+          pip install poetry
+          poetry install --no-dev
+          poetry add pytest pytest-django pytest-cov pytest-pythonpath factory-boy
+
+      - name: Run tests
         run: |
           POETRY_VENV=$(ls -td /home/runner/.cache/pypoetry/virtualenvs/*/ | head -1)
           source $POETRY_VENV/bin/activate
-          pip check
+          python3 manage.py migrate --noinput
+          pytest -q
+        env:
+          DB_ENGINE: django.db.backends.postgresql_psycopg2
+          DB_URL: "postgres://fishka-user:fishka-password@localhost:5432/fishka-database"
+          SECRET_KEY: qwertyuiop1234567890asdfghjkl
+          DB_HOST: localhost
+          DB_NAME: fishka-database
+          DB_USER: fishka-user
+          DB_PASSWORD: fishka-password
+          DB_PORT: 5432
+
 
   build_container:
     name: Build and publish container
-    needs: code_checks
+    needs: code_tests
     runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
-      - name: Set up Docker Buildx
+      - name: Set up Docker Buildx  
         uses: docker/setup-buildx-action@v1
 
       - name: Login to DockerHub
